@@ -5,7 +5,7 @@ countless K8S kubeconfig files and add/remove those configurations to a single
 kubeconfig in the background. Note: at moment the daemon only manage configs with
 single entries, ie Context, Cluster, User.
 
-# Goals
+## Goals
 
 If you are a lazy person like me and have a huge number of configuration
 files for K8S clusters that are often changed/added/removed, and you do
@@ -32,13 +32,13 @@ not be that lazy, so you can always rename the binary to `kubeconfig-imnotlazyas
 
 ---
 
-# Installing & Updating
+## Installing & Updating
 
 ```bash
 go install github.com/iganosaigo/kubeconfig-lazyass@latest
 ```
 
-# Daemon Mode
+### Daemon Mode
 
 Running `kubeconfig-lazyass` in daemon mode will watch the files in the working
 directory. The name for the new fields Context, Clusters and Users that will be added
@@ -58,7 +58,7 @@ Current options for daemon mode:
   there was a syscall write, the configuration in the root config will not be
   overwritten if present already.
 
-# CLI Mode
+### CLI Mode
 
 Running in CLI mode has the folowing opts:
 
@@ -68,7 +68,7 @@ Running in CLI mode has the folowing opts:
   opt then new name will be determined based on file name without extension.
 - `--overwrite` - same as in daemon mode.
 
-# Examples
+### Examples
 
 To run daemon server
 
