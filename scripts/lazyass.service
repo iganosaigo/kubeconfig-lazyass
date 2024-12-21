@@ -1,0 +1,16 @@
+[Unit]
+Description=kubeconfig-lazyass
+Documentation=https://github.com/iganosaigo/kubeconfig-lazyass
+
+[Service]
+Type=simple
+ExecStart=%h/git_projects/github/kubeconfig-lazyass/kubeconfig-lazyass \
+	--daemon \
+	--overwrite \
+	--kubeconfig-root=%h/.kube/config_combined
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=multi-user.target
