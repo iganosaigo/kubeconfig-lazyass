@@ -50,10 +50,11 @@ Current options for daemon mode:
 - `--daemon` - Required for daemon. Without that opt will run in manual mode.
 - `--working-dir` - Directory where your multiple configs are placed. If not
   specified then directory of the root kubeconfig will be used.
-- `--kubeconfig-root` - The root kubeconfig file(by default ~/.kube/config),
-  where all configurations will be merged. Note that you can specify a
-  non-existent file, and the daemon will create a new config. It is probably
-  better to create a new file to separate the automatic and manual logic.
+- `--kubeconfig-root` - The root kubeconfig file(by default ~/.kube/config, but
+  overrided by KUBECONFIG environ if set), where all configurations
+  will be merged. Note that you can specify a non-existent file, and the
+  daemon will create a new config. It is probably better to create a new
+  file to separate the automatic and manual logic.
 - `--overwrite` - without this option, if an existing file is overwritten, i.e.
   there was a syscall write, the configuration in the root config will not be
   overwritten if present already.
