@@ -114,9 +114,8 @@ func (w *watched) watchLoop(
 					w.logger.Fatal(GerericError, "watcher: root config was deleted from outside")
 				case fn.Write:
 					w.logger.Warn("watcher: root config manipulated from outside")
-				default:
-					continue
 				}
+				continue
 			}
 			if strings.HasSuffix(e.Name, ".lock") {
 				continue
