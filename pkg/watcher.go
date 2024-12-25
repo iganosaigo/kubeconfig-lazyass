@@ -21,7 +21,7 @@ func (w *watched) onEventCreateWrite(e fn.Event) {
 	filename := filepath.Base(e.Name)
 	ctxNameFromE := u.CleanName(filename)
 
-	var msgAdd string = "added"
+	msgAdd := "added"
 	if w.get(ctxNameFromE) {
 		if w.overwrite {
 			msgAdd = "replaced"
@@ -57,7 +57,7 @@ func (w *watched) onEventDelete(e fn.Event) {
 		w.deleteEntry(ctxNameFromE)
 		err := w.writeRootConfig()
 		if err != nil {
-			w.logger.Error("watcher: failed to write context %q", ctxNameFromE)
+			w.logger.Error(fmt.Sprintf("watcher: failed to write context %q", ctxNameFromE))
 			return
 		}
 		w.logger.Warn(fmt.Sprintf("watcher: context %q deleted", ctxNameFromE))
@@ -92,8 +92,8 @@ func (w *watched) watchChangeHandler(e fn.Event) {
 }
 
 func (w *watched) watchLoop(
-	ctx context.Context, inotify *fn.Watcher, watchCh chan<- struct{}) {
-
+	ctx context.Context, inotify *fn.Watcher, watchCh chan<- struct{},
+) {
 	w.timers = make(map[string]*time.Timer)
 	for {
 		select {
@@ -109,12 +109,14 @@ func (w *watched) watchLoop(
 				return
 			}
 			if e.Name == w.rootConfigPath {
-				if e.Op == fn.Remove || e.Op == fn.Rename {
+				switch op := e.Op; op {
+				case fn.Remove, fn.Rename:
 					w.logger.Fatal(GerericError, "watcher: root config was deleted from outside")
-				} else if e.Op == fn.Write {
+				case fn.Write:
 					w.logger.Warn("watcher: root config manipulated from outside")
+				default:
+					continue
 				}
-				continue
 			}
 			if strings.HasSuffix(e.Name, ".lock") {
 				continue
@@ -150,7 +152,7 @@ func (w *watched) startWatcher(ctx context.Context) {
 	err = watcher.Add(w.workingDir)
 	if err != nil {
 		w.logger.Fatalf(
-			InotifyInitError, "failed to watch dir %s: %w", w.workingDir, err)
+			InotifyInitError, "failed to watch dir %s: %v", w.workingDir, err)
 	}
 	<-watchCh
 }

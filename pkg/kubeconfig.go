@@ -73,13 +73,13 @@ func (w *watched) Merge(ctxName string, cfgProvided *kConfig) (*kapi.Config, err
 
 func (w *watched) isSingleConfig(config *kapi.Config) []string {
 	result := make([]string, 0)
-	if singleSection := u.IsSingleEntry(config.Contexts); singleSection != true {
+	if singleSection := u.IsSingleEntry(config.Contexts); !singleSection {
 		result = append(result, "Context")
 	}
-	if singleSection := u.IsSingleEntry(config.Clusters); singleSection != true {
+	if singleSection := u.IsSingleEntry(config.Clusters); !singleSection {
 		result = append(result, "Clusters")
 	}
-	if singleSection := u.IsSingleEntry(config.AuthInfos); singleSection != true {
+	if singleSection := u.IsSingleEntry(config.AuthInfos); !singleSection {
 		result = append(result, "Users")
 	}
 

@@ -1,6 +1,6 @@
-# kubeconfig-lazyass
+# kubeconfig-lazyass[istant]
 
-`kubeconfig-lazyass[istant]` is an Inotify daemon that allows you to monitor
+`kubeconfig-lazyass` is an Inotify daemon that allows you to monitor
 countless K8S kubeconfig files and add/remove those configurations to a single
 kubeconfig in the background. Note: at moment the daemon only manage configs with
 single entries, ie Context, Cluster, User.
