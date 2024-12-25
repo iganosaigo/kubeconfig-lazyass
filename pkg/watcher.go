@@ -113,7 +113,7 @@ func (w *watched) watchLoop(
 				case fn.Remove, fn.Rename:
 					w.logger.Fatal(GerericError, "watcher: root config was deleted from outside")
 				case fn.Write:
-					w.logger.Warn("watcher: root config manipulated from outside")
+					w.logger.Warn("watcher: root config was modified")
 				}
 				continue
 			}
